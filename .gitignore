@@ -14,3 +14,7 @@ release/
 Thumbs.db
 *~
 .idea/
+.flatpak-builder/
+.flatpak/
+build-dir/
+repo/

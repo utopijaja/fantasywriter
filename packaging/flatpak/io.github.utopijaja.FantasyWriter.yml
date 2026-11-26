@@ -1,0 +1,87 @@
+# Flatpak manifest for FantasyWriter.
+# Local build from this repository (run flatpak-builder from the repo root):
+#   flatpak-builder --force-clean --user --install build-dir \
+#     packaging/flatpak/io.github.utopijaja.FantasyWriter.yml
+#
+# The Flathub submission must not use type:dir. Pin a git tag instead.
+# See docs/FLATHUB.md. Do not open that pull request from an agent.
+
+app-id: io.github.utopijaja.FantasyWriter
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '26.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node22
+command: fantasywriter
+separate-locales: false
+finish-args:
+  # File dialogs, trash and opening links go through XDG portals.
+  - --share=ipc
+  # Show the window on Wayland, and on X11 only if the session has no Wayland.
+  - --socket=wayland
+  - --socket=fallback-x11
+  # Chromium's GPU process. Without this the UI is software-rendered.
+  - --device=dri
+  # Download a Firefox theme from addons.mozilla.org, and Hunspell
+  # dictionaries for the spellchecker. No other network use.
+  - --share=network
+  # The library is a directory of JSON and images the app reads and writes
+  # itself, so the document portal is the wrong tool for it. Dialogs that
+  # import or export a single file use the portal and need no extra filesystem
+  # access. Host home, Firefox profiles and the rest of Documents stay closed.
+  - --filesystem=xdg-documents/FantasyWriter:create
+  - --env=GTK_USE_PORTAL=1
+  - --env=ELECTRON_TRASH=gio
+  - --env=ELECTRON_OZONE_PLATFORM_HINT=auto
+  - --env=XCURSOR_PATH=/run/host/user-share/icons:/run/host/share/icons
+modules:
+  - name: fantasywriter
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/node22/bin
+      env:
+        NPM_CONFIG_LOGLEVEL: info
+        XDG_CACHE_HOME: /run/build/fantasywriter/flatpak-node/cache
+        npm_config_cache: /run/build/fantasywriter/flatpak-node/npm-cache
+        npm_config_offline: 'true'
+        # @electron/get reads this. flatpak-node-generator fills the directory.
+        electron_config_cache: /run/build/fantasywriter/flatpak-node/cache/electron
+    build-commands:
+      - rm -rf node_modules
+      # Lifecycle scripts of dev tools would try to download. Electron's
+      # binary is unpacked afterwards from the offline cache.
+      - npm ci --offline --ignore-scripts
+      - node node_modules/electron/install.js
+      - |
+        set -eu
+        APP=/app/fantasywriter
+        rm -rf "$APP"
+        mkdir -p "$APP"
+        cp -a node_modules/electron/dist/. "$APP/"
+        rm -f "$APP/chrome-sandbox" "$APP/resources/default_app.asar"
+        mv "$APP/electron" "$APP/fantasywriter"
+        chmod 755 "$APP/fantasywriter"
+        mkdir -p "$APP/resources/app"
+        cp package.json package-lock.json main.js preload.js LICENSE "$APP/resources/app/"
+        cp -a src assets "$APP/resources/app/"
+        npm ci --offline --omit=dev --ignore-scripts --prefix "$APP/resources/app"
+        rm -f "$APP/resources/app/package-lock.json"
+      - install -Dm755 packaging/flatpak/fantasywriter.sh /app/bin/fantasywriter
+      - install -Dm644 packaging/flatpak/io.github.utopijaja.FantasyWriter.desktop /app/share/applications/io.github.utopijaja.FantasyWriter.desktop
+      - install -Dm644 packaging/flatpak/io.github.utopijaja.FantasyWriter.metainfo.xml /app/share/metainfo/io.github.utopijaja.FantasyWriter.metainfo.xml
+      - install -Dm644 LICENSE /app/share/licenses/io.github.utopijaja.FantasyWriter/LICENSE
+      - |
+        set -eu
+        for size in 16 32 48 64 128 256 512; do
+          install -Dm644 \
+            "packaging/flatpak/icons/hicolor/${size}x${size}/apps/io.github.utopijaja.FantasyWriter.png" \
+            "/app/share/icons/hicolor/${size}x${size}/apps/io.github.utopijaja.FantasyWriter.png"
+        done
+    sources:
+      # Local tree. For the Flathub pull request, replace this with a pinned
+      # git source (tag + commit) of utopijaja/fantasywriter. See docs/FLATHUB.md.
+      - type: dir
+        path: ../..
+      - generated-sources.json

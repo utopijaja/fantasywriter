@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.utopijaja.FantasyWriter</id>
+  <name>FantasyWriter</name>
+  <name xml:lang="de">FantasyWriter</name>
+  <summary>Write novels and export PDF or EPUB</summary>
+  <summary xml:lang="de">Bücher schreiben und exportieren</summary>
+  <developer id="io.github.utopijaja">
+    <name>utopijaja</name>
+  </developer>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <description>
+    <p>Write novels, keep notes and pictures, and build a world of characters, places, maps and a timeline.</p>
+    <p xml:lang="de">Romane schreiben, Notizen und Bilder sammeln und eine Welt aus Figuren, Orten, Karten und einer Zeitleiste aufbauen.</p>
+    <p>Chapters are edited on screen and can be exported as PDF or EPUB. Themes can be created in the app or imported from a Firefox theme.</p>
+    <p xml:lang="de">Kapitel entstehen im Editor und lassen sich als PDF oder EPUB exportieren. Designs lassen sich selbst anlegen oder aus einem Firefox-Design übernehmen.</p>
+    <p>The library is stored in the Documents folder, in a directory named FantasyWriter.</p>
+    <p xml:lang="de">Die Bibliothek liegt im Dokumente-Ordner unter FantasyWriter.</p>
+  </description>
+  <launchable type="desktop-id">io.github.utopijaja.FantasyWriter.desktop</launchable>
+  <url type="homepage">https://github.com/utopijaja/fantasywriter</url>
+  <url type="bugtracker">https://github.com/utopijaja/fantasywriter/issues</url>
+  <url type="vcs-browser">https://github.com/utopijaja/fantasywriter</url>
+  <screenshots>
+    <!-- PLATZHALTER: Flathub lehnt Einreichungen ohne echte Screenshots ab.
+         Die URLs zeigen auf Dateien, die es noch nicht gibt. Echte PNGs nach
+         docs/screenshots/ legen und die URLs auf einen Git-Tag oder Commit
+         setzen, nicht auf einen Branch. Siehe docs/screenshots/TODO.md. -->
+    <screenshot type="default">
+      <image>https://github.com/utopijaja/fantasywriter/raw/main/docs/screenshots/placeholder-bibliothek.png</image>
+      <caption>PLACEHOLDER: library (real screenshot required before Flathub)</caption>
+      <caption xml:lang="de">PLATZHALTER: Bibliothek (vor Flathub durch echten Screenshot ersetzen)</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://github.com/utopijaja/fantasywriter/raw/main/docs/screenshots/placeholder-editor.png</image>
+      <caption>PLACEHOLDER: chapter editor (real screenshot required before Flathub)</caption>
+      <caption xml:lang="de">PLATZHALTER: Kapitelditor (vor Flathub durch echten Screenshot ersetzen)</caption>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release version="0.1.1" date="2026-11-26">
+      <description>
+        <p>First public release: write chapters, keep a story world, and export PDF or EPUB.</p>
+        <p xml:lang="de">Erste Veröffentlichung: Kapitel schreiben, eine Welt dazu anlegen und als PDF oder EPUB exportieren.</p>
+      </description>
+    </release>
+  </releases>
+  <content_rating type="oars-1.1"/>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </recommends>
+  <requires>
+    <display_length compare="ge">768</display_length>
+  </requires>
+</component>

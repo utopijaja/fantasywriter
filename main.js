@@ -8,7 +8,18 @@ const { execFile } = require('child_process');
 const AdmZip = require('adm-zip');
 
 // Für Tests: eigener Datenordner, damit die echte Bibliothek unberührt bleibt
-if (process.env.FW_DATA) { app.setPath('userData', path.join(process.env.FW_DATA, 'config')); app.setPath('documents', path.join(process.env.FW_DATA, 'docs')); }
+if (process.env.FW_DATA) {
+  app.setPath('userData', path.join(process.env.FW_DATA, 'config'));
+  app.setPath('documents', path.join(process.env.FW_DATA, 'docs'));
+} else if (process.env.FLATPAK_ID && process.env.XDG_CONFIG_HOME) {
+  // Flatpak legt XDG_CONFIG_HOME nach ~/.var/app/<id>/config. Einstellungen und
+  // Designs gehören dorthin, nicht nach ~/.config im Home des Wirts.
+  app.setPath('userData', path.join(process.env.XDG_CONFIG_HOME, 'FantasyWriter'));
+}
+// Fenster der Desktop-Datei der Flatpak-App zuordnen (Wayland app_id / WM_CLASS).
+if (process.env.FLATPAK_ID && process.platform === 'linux' && typeof app.setDesktopName === 'function') {
+  app.setDesktopName(process.env.FLATPAK_ID + '.desktop');
+}
 
 const LIB = () => path.join(app.getPath('documents'), 'FantasyWriter');
 const UD = () => app.getPath('userData');
@@ -349,7 +360,9 @@ ipcMain.handle('export:epub', async (e, payload) => {
 // Starter-Eintrag fürs Startmenü und die Taskleiste anlegen: ein AppImage bringt dem System sonst
 // weder Symbol noch Startbefehl mit, und angeheftete Einträge führen ins Leere.
 async function installLauncher() {
-  if (!app.isPackaged || process.platform !== 'linux') return;
+  // Flatpak liefert Desktop-Datei und Icon selbst aus. Ein zweiter Starter
+  // im Sandbox-Datenordner würde auf die interne Electron-Binary zeigen.
+  if (!app.isPackaged || process.platform !== 'linux' || process.env.FLATPAK_ID) return;
   const exe = process.env.APPIMAGE || process.execPath;
   const data = process.env.XDG_DATA_HOME || path.join(app.getPath('home'), '.local', 'share');
   const icon = path.join(data, 'icons', 'hicolor', '512x512', 'apps', 'fantasywriter.png');

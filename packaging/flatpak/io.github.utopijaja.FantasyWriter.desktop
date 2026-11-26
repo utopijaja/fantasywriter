@@ -1,0 +1,17 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=FantasyWriter
+Name[de]=FantasyWriter
+GenericName=Writing application
+GenericName[de]=Schreibprogramm
+Comment=Write novels and export them as PDF or EPUB
+Comment[de]=Bücher schreiben und als PDF oder EPUB exportieren
+Exec=fantasywriter %U
+Icon=io.github.utopijaja.FantasyWriter
+Terminal=false
+Categories=Office;WordProcessor;
+Keywords=write;book;novel;fantasy;epub;pdf;
+Keywords[de]=schreiben;buch;roman;fantasy;epub;pdf;
+StartupNotify=true
+StartupWMClass=io.github.utopijaja.FantasyWriter

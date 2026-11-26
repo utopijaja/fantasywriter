@@ -19,7 +19,8 @@
   },
   "author": "FantasyWriter",
   "build": {
-    "appId": "de.fantasywriter.app",
+    "appId": "io.github.utopijaja.FantasyWriter",
+    "executableName": "fantasywriter",
     "productName": "FantasyWriter",
     "asar": false,
     "files": [
