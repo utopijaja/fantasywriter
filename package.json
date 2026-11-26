@@ -1,0 +1,42 @@
+{
+  "name": "fantasywriter",
+  "productName": "FantasyWriter",
+  "version": "0.1.1",
+  "license": "GPL-3.0-or-later",
+  "description": "Schreibprogramm für Bücher mit Designs, Bildern und PDF/EPUB-Export",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --linux AppImage tar.gz"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "hyphen": "^1.14.1"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^26.18.0"
+  },
+  "author": "FantasyWriter",
+  "build": {
+    "appId": "de.fantasywriter.app",
+    "productName": "FantasyWriter",
+    "asar": false,
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**",
+      "assets/**"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "category": "Office",
+      "icon": "build/icon.png",
+      "artifactName": "FantasyWriter-${version}-${arch}.${ext}"
+    }
+  },
+  "desktopName": "fantasywriter.desktop"
+}

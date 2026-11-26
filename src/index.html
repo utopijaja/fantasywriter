@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de" data-mode="dark">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; style-src 'self' 'unsafe-inline'; img-src file: data:">
+<title>FantasyWriter</title>
+<link rel="stylesheet" href="css/book.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header id="top">
+  <button id="bookcard" title="Buch wechseln"><span id="bookcard-title"></span><span class="caret">▾</span></button>
+  <div id="bars">
+    <div id="row1">
+      <span id="crumb"></span>
+      <span class="grow"></span>
+      <button id="btn-mode" title="Hell / Dunkel"></button>
+      <button id="btn-design">Design</button>
+      <button id="btn-export" class="primary">Exportieren</button>
+    </div>
+    <div id="toolbar">
+      <button data-cmd="bold" title="Fett (Strg+B)"><b>F</b></button>
+      <button data-cmd="italic" title="Kursiv (Strg+I)"><i>K</i></button>
+      <span class="sep"></span>
+      <button data-block="p" title="Normaler Absatz">Absatz</button>
+      <button data-block="h2" title="Zwischenüberschrift">Überschrift</button>
+      <button id="btn-scene" title="Szenenwechsel einfügen">⁂</button>
+      <span class="sep"></span>
+      <button data-cmd="justifyFull" title="Blocksatz">Block</button>
+      <button data-cmd="justifyCenter" title="Zentriert">Mitte</button>
+      <span class="sep"></span>
+      <button id="btn-image" title="Bild auf die Seite setzen">Bild einfügen</button>
+      <span class="grow"></span>
+      <span id="stats"></span>
+      <button id="zoom-out" title="Verkleinern">−</button>
+      <span id="zoom-val"></span>
+      <button id="zoom-in" title="Vergrößern">+</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside id="left" class="side">
+    <div class="side-head"><span>Kapitel</span><button id="btn-add-chapter" title="Neues Kapitel">+</button></div>
+    <ul id="chapters"></ul>
+    <div class="side-head"><span>Welt</span></div>
+    <ul id="worldnav">
+      <li data-view="figures">Figuren</li>
+      <li data-view="places">Orte</li>
+      <li data-view="maps">Karten</li>
+      <li data-view="timeline">Zeitleiste</li>
+    </ul>
+  </aside>
+
+  <section id="work">
+    <div id="pageview"><div id="pagewrap"><div id="pages" class="pages">
+      <div class="sheets"></div>
+      <div class="flow"><div class="excl"></div><h1 class="chtitle" contenteditable="plaintext-only" spellcheck="false"></h1><div class="editor" contenteditable="true" spellcheck="true"></div></div>
+      <div class="imgs"></div>
+    </div></div></div>
+    <div id="worldview" hidden></div>
+    <div id="empty" hidden><p>Noch kein Buch vorhanden.</p><button id="btn-first-book" class="primary">Erstes Buch anlegen</button></div>
+  </section>
+
+  <aside id="right" class="side">
+    <div class="tabs"><button data-tab="notes" class="on">Notizen</button><button data-tab="refs">Bilder</button></div>
+    <div id="tab-notes" class="tab"><button id="btn-add-note" class="wide">+ Notiz</button><div id="notes"></div></div>
+    <div id="tab-refs" class="tab" hidden><button id="btn-add-ref" class="wide">+ Bilder hinzufügen</button><p class="hint">Bilder lassen sich von hier auf die Seite ziehen.</p><div id="refs"></div></div>
+  </aside>
+</main>
+
+<div id="bookmenu" class="popup" hidden></div>
+<div id="toast" hidden></div>
+
+<dialog id="dlg-ask"><form method="dialog"><h3></h3><div class="fields"></div><menu><button value="cancel" formnovalidate>Abbrechen</button><button value="ok" class="primary">OK</button></menu></form></dialog>
+
+<dialog id="dlg-design"><div class="dlg-wide">
+  <h3>Design</h3>
+  <div id="theme-list"></div>
+  <div class="row">
+    <button id="btn-theme-file">Firefox-Design aus Datei (.xpi)…</button>
+    <input id="theme-url" type="text" placeholder="Link von addons.mozilla.org einfügen">
+    <button id="btn-theme-url">Laden</button>
+  </div>
+  <div class="row"><button id="btn-theme-firefox" class="primary">Aus meinem Firefox übernehmen</button><span class="hint">Findet die Designs, die in deinem Firefox installiert sind.</span></div>
+  <div class="row"><button id="btn-theme-browse">Designs bei Firefox ansehen</button><button id="btn-theme-new">Eigenes Design anlegen</button><span class="grow"></span><button id="btn-theme-delete">Dieses Design löschen</button></div>
+  <h4>Hintergrundbilder der Flächen</h4>
+  <div id="surfaces"></div>
+  <label class="row">Stärke des Designs auf der Seite <input id="page-opacity" type="range" min="0" max="0.4" step="0.01"></label>
+  <menu><button id="btn-design-close" class="primary">Fertig</button></menu>
+</div></dialog>
+
+<dialog id="dlg-export"><form method="dialog">
+  <h3>Exportieren</h3>
+  <label class="row"><input type="checkbox" id="export-bg"> Hintergrunddesign der Seite mit in die PDF übernehmen</label>
+  <p class="hint">Die PDF enthält Titelseite, Inhaltsverzeichnis, Kopfzeilen und Seitenzahlen. Im EPUB stehen Bilder zwischen den Absätzen, weil E-Book-Reader keine frei platzierten Bilder kennen.</p>
+  <menu><button value="cancel">Abbrechen</button><button value="epub">Als EPUB</button><button value="pdf" class="primary">Als PDF</button></menu>
+</form></dialog>
+
+<div id="lightbox" hidden><img alt=""></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

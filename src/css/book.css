@@ -1,0 +1,19 @@
+/* Buchsatz – gilt gleich für Editor und PDF-Export, damit Zeilenumbrüche übereinstimmen */
+.pages { position: relative; width: 148mm; --gap: 8mm; }
+.sheet { position: relative; height: 210mm; margin-bottom: var(--gap); background: var(--paper, #fff); color: var(--ink, #111); overflow: hidden; font-family: var(--body-font, serif); }
+.sheet::before { content: ''; position: absolute; inset: 0; background: var(--page-img, none) center / cover no-repeat; opacity: var(--page-img-opacity, 0); pointer-events: none; }
+.sheet-head { position: absolute; top: 10mm; left: 17mm; right: 17mm; text-align: center; font-size: 8pt; letter-spacing: .12em; text-transform: uppercase; opacity: .6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sheet-num { position: absolute; bottom: 10mm; left: 0; right: 0; text-align: center; font-size: 9.5pt; opacity: .8; }
+.flow { position: absolute; left: 17mm; top: 20mm; width: 114mm; color: var(--ink, #111); font-family: var(--body-font, serif); font-size: var(--body-size, 11pt); line-height: 1.45; }
+.excl { height: 0; }
+.xl { float: left; clear: left; }
+.xr { float: right; clear: right; }
+.chtitle { font-family: var(--title-font, serif); font-size: 22pt; line-height: 1.2; font-weight: normal; text-align: center; margin: 0; padding: 20mm 0 12mm; outline: none; }
+.editor { outline: none; text-align: justify; overflow-wrap: break-word; min-height: 1.45em; }
+.editor p { margin: 0; text-indent: 1.3em; }
+.editor p:first-child, .editor h2 + p, .editor p.scene + p, .editor p.scene { text-indent: 0; }
+.editor p.scene { text-align: center; margin: 1.45em 0; letter-spacing: .4em; }
+.editor h2 { font-family: var(--title-font, serif); font-size: 14pt; line-height: 1.45; font-weight: normal; text-align: center; margin: 1.45em 0 .725em; }
+.imgs { position: absolute; left: 0; top: 0; width: 100%; height: 0; }
+.pimg { position: absolute; }
+.pimg img { width: 100%; height: 100%; display: block; object-fit: cover; }

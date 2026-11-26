@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.pdf
+*.AppImage
+*.tar.gz
+out/
+release/
+.env
+.env.*
+*.pem
+*.key
+*.log
+.DS_Store
+Thumbs.db
+*~
+.idea/

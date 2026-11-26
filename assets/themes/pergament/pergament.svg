@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+<defs>
+<pattern id="orn" width="160" height="160" patternUnits="userSpaceOnUse">
+<g fill="none" stroke="#b8893a" stroke-width="2" opacity=".55">
+<path d="M80 10 C110 40 110 70 80 80 C50 70 50 40 80 10Z"/><path d="M80 150 C110 120 110 90 80 80 C50 90 50 120 80 150Z"/>
+<path d="M10 80 C40 50 70 50 80 80 C70 110 40 110 10 80Z"/><path d="M150 80 C120 50 90 50 80 80 C90 110 120 110 150 80Z"/>
+<circle cx="80" cy="80" r="6"/><circle cx="0" cy="0" r="14"/><circle cx="160" cy="0" r="14"/><circle cx="0" cy="160" r="14"/><circle cx="160" cy="160" r="14"/>
+</g>
+</pattern>
+<radialGradient id="glow" cx=".8" cy=".2" r=".9"><stop offset="0" stop-color="#e7b65a" stop-opacity=".45"/><stop offset="1" stop-color="#e7b65a" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#glow)"/>
+<rect width="1600" height="900" fill="url(#orn)"/>
+</svg>

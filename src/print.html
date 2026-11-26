@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; style-src 'self' 'unsafe-inline'; img-src file: data:">
+<link rel="stylesheet" href="css/book.css">
+<style>
+  @page { size: 148mm 210mm; margin: 0; }
+  html, body { margin: 0; background: #fff; }
+  .pages { --gap: 0mm; break-before: page; }
+  .sheet { break-after: page; break-inside: avoid; }
+  .front { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 17mm; box-sizing: border-box; }
+  .front h1 { font-family: var(--title-font); font-size: 34pt; font-weight: normal; line-height: 1.15; margin: 0 0 14mm; }
+  .front p { font-size: 13pt; margin: 0; }
+  .toc { padding: 30mm 17mm 22mm; box-sizing: border-box; }
+  .toc h2 { font-family: var(--title-font); font-size: 20pt; font-weight: normal; text-align: center; margin: 0 0 12mm; }
+  .toc div { display: flex; gap: 2mm; font-size: 11pt; line-height: 1.9; }
+  .toc div i { flex: 1; border-bottom: .2mm dotted #777; margin-bottom: 2.2mm; }
+</style>
+</head>
+<body>
+<script type="module" src="js/print.js"></script>
+</body>
+</html>
